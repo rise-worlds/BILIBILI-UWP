@@ -1,0 +1,207 @@
+﻿<Page
+    x:Class="BILIBILI_UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BILIBILI_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded"
+    >
+    <Page.Resources>
+        <Style x:Key="ListViewItemStyle1" TargetType="ListViewItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Padding" Value="12,0,12,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <ListViewItemPresenter 
+                            CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" 
+                            ContentMargin="{TemplateBinding Padding}" CheckMode="Inline" 
+                            ContentTransitions="{TemplateBinding ContentTransitions}" 
+                            CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" 
+                            DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" 
+                            DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" 
+                            DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" 
+                            DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" 
+                            FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" 
+                            FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" 
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                            PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" 
+                            PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" 
+                            PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" 
+                            PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" 
+                            ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" 
+                            SelectedPressedBackground="#4C000000" 
+                            SelectionCheckMarkVisualEnabled="True" 
+                            SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" 
+                            SelectedPointerOverBackground="#7F000000" 
+                            SelectedBackground="#19000000" 
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Background="{ThemeResource Bili-Background}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="big">
+                <VisualState x:Name="wide800">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="801"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="content_SplitView.DisplayMode" Value="Inline"></Setter>
+                        <Setter Target="content_SplitView.IsPaneOpen" Value="true"></Setter>
+                        <Setter Target="top_txt_find.Visibility" Value="Visible"></Setter>
+                        <Setter Target="top_btn_Resh.Visibility" Value="Visible"></Setter>
+                        <Setter Target="top_btn_find.Visibility" Value="Collapsed"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="content_SplitView.DisplayMode" Value="Overlay"></Setter>
+                        <Setter Target="top_txt_find.Visibility" Value="Collapsed"></Setter>
+                        <Setter Target="top_btn_find.Visibility" Value="Visible"></Setter>
+                        <Setter Target="top_btn_Resh.Visibility" Value="Collapsed"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="{ThemeResource Bili-ForeColor}" x:Name="top_Grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <AppBarButton x:Name="top_btn_OpenMenu"  Width="48" Height="48"  HorizontalAlignment="Left" Click="top_btn_OpenMenu_Click" >
+                <AppBarButton.Icon>
+                    <BitmapIcon Height="24" Width="24" VerticalAlignment="Center" UriSource="Assets/iconfont-menu.png" Foreground="White"></BitmapIcon>
+                </AppBarButton.Icon>
+            </AppBarButton>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <AppBarButton Icon="Back" Width="48" Height="48" Foreground="White" Visibility="Collapsed"></AppBarButton>
+                <TextBlock Text="首页" x:Name="top_txt_Header" VerticalAlignment="Center" Margin="10,0" Foreground="White" ></TextBlock>
+            </StackPanel>
+            <AutoSuggestBox x:Name="top_txt_find" PlaceholderText="关键字或AV号" Visibility="Collapsed" Height="32"  Width="150" QueryIcon="Find" Grid.Column="2" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="5,0" QuerySubmitted="top_txt_find_QuerySubmitted"  />
+            <AppBarButton x:Name="top_btn_find"  Width="48" Height="48" Grid.Column="2" Icon="Find" HorizontalAlignment="Right"  Foreground="White" Click="top_btn_find_Click"/>
+            <AppBarButton x:Name="top_btn_Resh" Visibility="Collapsed"  Width="48" Height="48" Grid.Column="3" Icon="Refresh" HorizontalAlignment="Right"  Foreground="White" Click="top_btn_Resh_Click"/>
+           
+        </Grid>
+        <SplitView Grid.Row="1" x:Name="content_SplitView" OpenPaneLength="200" PaneBackground="{ ThemeResource Bili-ForeColor-Dark}">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.8*"></RowDefinition>
+                        <RowDefinition Height="0.2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListView  x:Name="Menu_List" SelectionChanged="Menu_List_SelectionChanged">
+                        <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Home" Width="26" Height="26" Foreground="White" />
+                                <TextBlock Text="首页推荐" VerticalAlignment="Center" Margin="20,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Filter" Width="26" Height="26" Foreground="White"/>
+                                <TextBlock Text="全部分区" VerticalAlignment="Center" Margin="20,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Clock" Width="26" Height="26" Foreground="White"/>
+                                <TextBlock Text="番剧专题" VerticalAlignment="Center" Margin="20,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="ZeroBars" Width="26" Height="26" Foreground="White"/>
+                                <TextBlock Text="全站排行" VerticalAlignment="Center" Margin="20,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>
+
+                        <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Contact2" Width="26" Height="26" Foreground="White"/>
+                                <TextBlock Text="关注动态" VerticalAlignment="Center" Margin="20,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>
+                        <!--<ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="OutlineStar"  Width="26" Height="26" Foreground="White"/>
+                                <TextBlock Text="收藏" VerticalAlignment="Center" Margin="10,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>-->
+                        <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Video"  Width="26" Height="26" Foreground="White"/>
+                                <TextBlock Text="直播中心" VerticalAlignment="Center" Margin="20,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Download"  Width="26" Height="26" Foreground="White"/>
+                                <TextBlock Text="离线管理" VerticalAlignment="Center" Margin="20,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                    <ListView x:Name="Menu_List_Buttom" SelectionMode="None" Grid.Row="1" VerticalAlignment="Bottom" IsItemClickEnabled="True" ItemClick="Menu_List_Buttom_ItemClick">
+                        <ListViewItem  Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel x:Name="user_Info" Orientation="Horizontal" Tag="User">
+                                <Ellipse Width="26" Height="26">
+                                    <Ellipse.Fill>
+                                        <ImageBrush  ImageSource="{Binding face}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding name}" VerticalAlignment="Center" Margin="20,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem  Style="{StaticResource ListViewItemStyle1}">
+                            <StackPanel Orientation="Horizontal" Tag="Setting">
+                                <SymbolIcon Symbol="Setting"  Width="26" Height="26" Foreground="White"/>
+                                <TextBlock Text="设置" VerticalAlignment="Center" Margin="20,0" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                </Grid>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid>
+                    
+                    <Frame  Name="mainFrame"  Navigated="mainFrame_Navigated">
+                        <!--<Frame.ContentTransitions>
+                            <TransitionCollection>
+                                <EdgeUIThemeTransition Edge="Right"/>
+                            </TransitionCollection>
+                        </Frame.ContentTransitions>-->
+                    </Frame>
+                    <Frame  Name="downFrame" Visibility="Collapsed" Background="Black" Grid.Row="1"></Frame>
+                    <Border Grid.RowSpan="2" 
+                        ManipulationMode="TranslateX" 
+                        ManipulationCompleted="Border_ManipulationCompleted" 
+                        ManipulationDelta="Border_ManipulationDelta"
+                        Width="15" Opacity="0" Background="White" HorizontalAlignment="Left"/>
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
+    </Grid>
+</Page>

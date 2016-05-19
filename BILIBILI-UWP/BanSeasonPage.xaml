@@ -1,0 +1,95 @@
+﻿<Page
+    x:Class="BILIBILI_UWP.BanSeasonPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BILIBILI_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Tag="番剧详情"
+    >
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="56"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ScrollViewer x:Name="BanSeason_Content" VerticalScrollBarVisibility="Auto">
+            <Grid  x:Name="BanSeason_Grid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" ></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid BorderThickness="0,0,0,1" BorderBrush="#FFCDCDCD">
+                    <Grid Margin="10" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Source="{Binding cover}" Width="100" Margin="0,0,10,0" Grid.RowSpan="4"></Image>
+                        <TextBlock Text="{Binding title}" Grid.Column="1" VerticalAlignment="Top" TextWrapping="Wrap" FontSize="18"></TextBlock>
+                        <!--<TextBlock Text="{Binding UpdateorOver}"   Grid.Column="1"  Grid.Row="2"  VerticalAlignment="Top" Foreground="#FF7C7C7C"></TextBlock>-->
+                        <StackPanel Orientation="Horizontal" Grid.Column="1"  Grid.Row="1"  Height="16" VerticalAlignment="Center">
+                            <!--<Image Source="Assets/MiniIcon/DY.png" Width="16" Height="16" ></Image>-->
+                            <TextBlock Text="点击：" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"></TextBlock>
+                            <TextBlock Text="{Binding video_view}" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"></TextBlock>
+                            <!--<Image Source="Assets/MiniIcon/Play.png" Width="16" Height="16" Margin="10,0,0,0" VerticalAlignment="Bottom"></Image>-->
+                            <TextBlock Text="订阅：" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" Margin="20,0,0,0"></TextBlock>
+                            <TextBlock Text="{Binding attention}" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1"  Grid.Row="2"  Height="16" VerticalAlignment="Center">
+                            <TextBlock Text="最后更新：" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"></TextBlock>
+                            <TextBlock Text="{Binding lastupdate_at}" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <StackPanel Grid.Row="2" Margin="10" >
+                    <TextBlock Text="剧集" FontSize="18"></TextBlock>
+                    <GridView Margin="0,5" SelectionMode="None" x:Name="BanSea_Video" IsItemClickEnabled="True" ItemClick="BanSea_Video_ItemClick">
+                        <GridView.ItemContainerStyle>
+                            <Style TargetType="GridViewItem">
+                                <Setter Property="BorderThickness" Value="1"></Setter>
+                                <Setter Property="Background" Value="#FFE0DCDC"></Setter>
+                            </Style>
+                        </GridView.ItemContainerStyle>
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding episode}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Margin="5,0"></TextBlock>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                    <TextBlock Text="*使用的是旧版接口，很可能会出现获取失败的情况" TextWrapping="Wrap" FontSize="12" IsTextSelectionEnabled="True" Foreground="#FF646464" Margin="0,10"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="10">
+                    <TextBlock Text="介绍" FontSize="18" ></TextBlock>
+                    <TextBlock Text="{Binding description}" TextWrapping="Wrap" IsTextSelectionEnabled="True" Foreground="#FF646464" Margin="0,5"></TextBlock>
+
+                </StackPanel>
+                <!--<StackPanel Grid.Row="3" Margin="10">
+                <TextBlock Text="STAFF" FontSize="18" Margin="0,5"></TextBlock>
+                <TextBlock Text="{Binding staff}" Foreground="#FF646464" TextWrapping="Wrap"></TextBlock>
+            </StackPanel>-->
+                <!--<StackPanel Grid.Row="4" Margin="10">
+            <TextBlock Text="标签" FontSize="18" Margin="0,5"></TextBlock>
+            <TextBlock Text="XXX,XXX,XXX,XXX" Foreground="#FF646464" TextWrapping="Wrap" Margin="0,5"></TextBlock>
+        </StackPanel>-->
+            </Grid>
+        </ScrollViewer>
+        <CommandBar Grid.Row="1" Background="{ThemeResource Bili-ForeColor}" Foreground="White" VerticalAlignment="Bottom">
+            <AppBarButton x:Name="btn_Play" Icon="Play" Label="播放" Foreground="White" Click="btn_Play_Click"></AppBarButton>
+            <AppBarButton Label="订阅" Foreground="White" Click="AppBarButton_Click" >
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE006;"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
+        <Grid x:Name="BanSeason_Load" Grid.RowSpan="2">
+            <ProgressRing Width="100" Height="100" IsActive="True"></ProgressRing>
+        </Grid>
+    </Grid>
+</Page>

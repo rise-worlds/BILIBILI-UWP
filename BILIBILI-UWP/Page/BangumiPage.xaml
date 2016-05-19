@@ -1,0 +1,565 @@
+﻿<Page
+    x:Class="BILIBILI_UWP.BangumiPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BILIBILI_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Tag="番剧"
+    Loaded="Page_Loaded"
+    >
+    <Page.Resources>
+        <Style x:Name="GridViewItemStyle" TargetType="GridViewItem">
+            <Setter Property="BorderBrush" Value="#33000000"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="Background" Value="{ThemeResource Bili-List-Background}"></Setter>
+            
+        </Style>
+        <!--<Style x:Name="GridViewItemStyle1" TargetType="GridViewItem">
+            <Setter Property="BorderBrush" Value="#33595959"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Width" Value="200"></Setter>
+            <Setter Property="Height" Value="80"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+        </Style>-->
+        <DataTemplate x:Name="ItemData">
+            <Grid Width="80">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="32"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding square_cover}"  MaxWidth="80" HorizontalAlignment="Left"></Image>
+                <Border Background="#7F000000" CornerRadius="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5">
+                    <StackPanel Orientation="Horizontal"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,0">
+                        <TextBlock  Text="更新"  FontSize="12" Foreground="White" VerticalAlignment="Bottom"></TextBlock>
+                        <TextBlock  Text="{Binding bgmcount}"  FontSize="12" Foreground="White" VerticalAlignment="Bottom"></TextBlock>
+                        <TextBlock  Text="话"  FontSize="12" Foreground="White" VerticalAlignment="Bottom"></TextBlock>
+                    </StackPanel>
+                </Border>
+                <TextBlock Grid.Row="1" Text="{Binding title}" Margin="5,0"  FontSize="12" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2" ></TextBlock>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid >
+        <Pivot>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="番剧推荐" FontSize="18"></TextBlock>
+                </PivotItem.Header>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                     <StackPanel x:Name="Bangumi_Info">
+                        <HyperlinkButton Foreground="{ThemeResource Bili-FontColor}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="ms-appx:///Assets/FQLogo/FJ.png"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="分类推荐" FontSize="18" VerticalAlignment="Center" ></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_Type"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_Type_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding cover}" Width="120" MinHeight="120" VerticalAlignment="Top"></Image>
+                                            <TextBlock Text="{Binding tag_name}" Margin="5" FontSize="14"  VerticalAlignment="Center"  HorizontalAlignment="Center" TextWrapping="Wrap" ></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                        <HyperlinkButton Foreground="{ThemeResource Bili-FontColor}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="ms-appx:///Assets/FQLogo/FJ.png"></ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock Text="最近更新" FontSize="18" VerticalAlignment="Center" ></TextBlock>
+                        </StackPanel>
+                    </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_NewUpdate"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Grid>
+                                                <Image Source="{Binding cover}" Width="150" ></Image>
+                                                <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#7F000000" Margin="5" CornerRadius="5">
+                                                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                        <TextBlock Foreground="White" FontSize="12" Text="{Binding watchingCount}"></TextBlock>
+                                                        <TextBlock Foreground="White" FontSize="12" >人在看</TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
+                                            <Grid MaxWidth="150" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding title}"  FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="Wrap" ></TextBlock>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                    <TextBlock Text="更新至第" FontSize="12" Foreground="#FF0078D7" ></TextBlock>
+                                                    <TextBlock Text="{Binding newest_ep_index}" FontSize="12" Foreground="#FF0078D7" ></TextBlock>
+                                                    <TextBlock Text="话" FontSize="12" Foreground="#FF0078D7" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                        <HyperlinkButton Click="HyperlinkButton_Click" Foreground="{ThemeResource Bili-FontColor}" >
+                            <StackPanel  x:Name="Bangumi_TypeTitle1" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" ></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_Type1"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                            <Grid MaxWidth="150" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                    <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                        <HyperlinkButton Click="HyperlinkButton_Click" Foreground="{ThemeResource Bili-FontColor}" >
+                            <StackPanel  x:Name="Bangumi_TypeTitle2" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" ></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_Type2"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                            <Grid MaxWidth="150" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                    <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                        <HyperlinkButton Click="HyperlinkButton_Click" Foreground="{ThemeResource Bili-FontColor}" >
+                            <StackPanel  x:Name="Bangumi_TypeTitle3" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" ></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_Type3"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                            <Grid MaxWidth="150" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                    <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                        <HyperlinkButton Click="HyperlinkButton_Click" Foreground="{ThemeResource Bili-FontColor}" >
+                            <StackPanel  x:Name="Bangumi_TypeTitle4" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" ></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_Type4"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                            <Grid MaxWidth="150" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                    <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                        <HyperlinkButton Click="HyperlinkButton_Click" Foreground="{ThemeResource Bili-FontColor}" >
+                            <StackPanel  x:Name="Bangumi_TypeTitle5" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" ></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_Type5"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                            <Grid MaxWidth="150" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                    <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                        <HyperlinkButton Click="HyperlinkButton_Click" Foreground="{ThemeResource Bili-FontColor}" >
+                            <StackPanel  x:Name="Bangumi_TypeTitle6" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" ></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_Type6"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                            <Grid MaxWidth="150" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                    <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                        <HyperlinkButton Click="HyperlinkButton_Click" Foreground="{ThemeResource Bili-FontColor}" >
+                            <StackPanel  x:Name="Bangumi_TypeTitle7" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" ></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_Type7"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                            <Grid MaxWidth="150" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                    <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
+                        <!--<HyperlinkButton Click="HyperlinkButton_Click">
+                            <StackPanel  x:Name="Bangumi_TypeTitle8" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" Foreground="Black"></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" Margin="0,0,10,0">
+                            <GridView x:Name="GridView_Bangumi_Type8"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                            <Grid MaxWidth="150" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                    <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                    <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>-->
+                        <!--<HyperlinkButton Click="HyperlinkButton_Click">
+                            <StackPanel  x:Name="Bangumi_TypeTitle9" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" Foreground="Black"></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <GridView x:Name="GridView_Bangumi_Type9"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                        <Grid MaxWidth="150" Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="32"></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+                        <HyperlinkButton Click="HyperlinkButton_Click">
+                            <StackPanel  x:Name="Bangumi_TypeTitle10" Orientation="Horizontal">
+                                <Ellipse Width="36" Height="36" Margin="0,0,5,0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding cover}" ></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding tag_name}" FontSize="18" VerticalAlignment="Center" Foreground="Black"></TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <GridView x:Name="GridView_Bangumi_Type10"  SelectionMode="None" HorizontalAlignment="Center" IsItemClickEnabled="True"  ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="GridView_Bangumi_NewUpdate_ItemClick">
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Image Source="{Binding cover}" Width="150" Height="200"></Image>
+                                        <Grid MaxWidth="150" Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="32"></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding bangumi_title}" MaxLines="2" FontSize="12" TextAlignment="Center" VerticalAlignment="Center"  HorizontalAlignment="Left" TextWrapping="WrapWholeWords" ></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                                <TextBlock Text="全" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                <TextBlock Text="{Binding total_count}" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                                <TextBlock Text="话" FontSize="12" Foreground="#FF818181" ></TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>-->
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="番剧专题" FontSize="18"></TextBlock>
+                </PivotItem.Header>
+                <GridView x:Name="Ban_GridView_Info" SelectionMode="None" IsItemClickEnabled="True" HorizontalContentAlignment="Center" ItemContainerStyle="{StaticResource GridViewItemStyle}" ItemClick="Ban_GridView_Info_ItemClick">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid MaxWidth="150">
+                                <Image  Source="{Binding imageurl}"></Image>
+                                <StackPanel Background="#7F292828" VerticalAlignment="Bottom">
+                                    <TextBlock Text="{Binding title}" TextWrapping="Wrap" TextAlignment="Center" Margin="5,0" Foreground="White"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                 
+                </GridView>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="放送时间表" FontSize="18"></TextBlock>
+                </PivotItem.Header>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                    <GridView x:Name="weekday0" Style="{StaticResource GridViewStyle1}" SelectionMode="None" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource  GridViewItemStyle}" ItemTemplate="{StaticResource ItemData}" ItemClick="weekday0_ItemClick">
+                            <GridView.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <!--<Image Source="ms-appx:///Assets/FQLogo/FJ.png" Width="36" Height="36"></Image>-->
+                                    <TextBlock Text="周日" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                                </StackPanel>
+                            </GridView.Header>
+                            <!--<GridViewItem>
+                                <Grid >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="80"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="http://i0.hdslb.com/sp/95/95b6ce0320e4f47f1bc2ec3093aa877e.jpg"  MaxWidth="80" HorizontalAlignment="Left"></Image>
+                                    <Border Background="#7F000000" CornerRadius="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5">
+                                        <StackPanel Orientation="Horizontal"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,0">
+                                            <TextBlock  Text="更新"  FontSize="12" Foreground="White" VerticalAlignment="Bottom"></TextBlock>
+                                            <TextBlock  Text="{Binding bgmcount}"  FontSize="12" Foreground="White" VerticalAlignment="Bottom"></TextBlock>
+                                            <TextBlock  Text="话"  FontSize="12" Foreground="White" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                    <TextBlock Grid.Row="1" Text="{Binding title}" TextWrapping="Wrap" Margin="5,0" MaxLines="2" TextTrimming="CharacterEllipsis"></TextBlock>
+                                 
+                                </Grid>
+                            </GridViewItem>-->
+                        </GridView>
+                        <GridView x:Name="weekday1"  Style="{StaticResource GridViewStyle1}"  SelectionMode="None" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource  GridViewItemStyle}" ItemTemplate="{StaticResource ItemData}"  ItemClick="weekday0_ItemClick">
+                        <GridView.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<Image Source="ms-appx:///Assets/FQLogo/FJ.png" Width="36" Height="36"></Image>-->
+                                <TextBlock Text="周一" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                            </StackPanel>
+                        </GridView.Header>
+
+                    </GridView>
+                        <GridView x:Name="weekday2"  Style="{StaticResource GridViewStyle1}"  SelectionMode="None" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource  GridViewItemStyle}" ItemTemplate="{StaticResource ItemData}"  ItemClick="weekday0_ItemClick">
+                        <GridView.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<Image Source="ms-appx:///Assets/FQLogo/FJ.png" Width="36" Height="36"></Image>-->
+                                <TextBlock Text="周二" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                            </StackPanel>
+                        </GridView.Header>
+
+                    </GridView>
+                        <GridView x:Name="weekday3"  Style="{StaticResource GridViewStyle1}"  SelectionMode="None" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource  GridViewItemStyle}" ItemTemplate="{StaticResource ItemData}"  ItemClick="weekday0_ItemClick">
+                    <GridView.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <!--<Image Source="ms-appx:///Assets/FQLogo/FJ.png" Width="36" Height="36"></Image>-->
+                            <TextBlock Text="周三" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                        </StackPanel>
+                    </GridView.Header>
+
+                </GridView>
+                        <GridView x:Name="weekday4"  Style="{StaticResource GridViewStyle1}"  SelectionMode="None" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource  GridViewItemStyle}" ItemTemplate="{StaticResource ItemData}"  ItemClick="weekday0_ItemClick">
+                        <GridView.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<Image Source="ms-appx:///Assets/FQLogo/FJ.png" Width="36" Height="36"></Image>-->
+                                <TextBlock Text="周四" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                            </StackPanel>
+                        </GridView.Header>
+
+                    </GridView>
+                        <GridView x:Name="weekday5"  Style="{StaticResource GridViewStyle1}"  SelectionMode="None" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource  GridViewItemStyle}" ItemTemplate="{StaticResource ItemData}"  ItemClick="weekday0_ItemClick">
+                        <GridView.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<Image Source="ms-appx:///Assets/FQLogo/FJ.png" Width="36" Height="36"></Image>-->
+                                <TextBlock Text="周五" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                            </StackPanel>
+                        </GridView.Header>
+
+                    </GridView>
+                        <GridView x:Name="weekday6"  Style="{StaticResource GridViewStyle1}"  SelectionMode="None" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource  GridViewItemStyle}" ItemTemplate="{StaticResource ItemData}"  ItemClick="weekday0_ItemClick">
+                        <GridView.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<Image Source="ms-appx:///Assets/FQLogo/FJ.png" Width="36" Height="36"></Image>-->
+                                <TextBlock Text="周六" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                            </StackPanel>
+                        </GridView.Header>
+
+                    </GridView>
+                        <GridView x:Name="weekday7"  Style="{StaticResource GridViewStyle1}"  SelectionMode="None" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource  GridViewItemStyle}" ItemTemplate="{StaticResource ItemData}"  ItemClick="weekday0_ItemClick">
+                        <GridView.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<Image Source="ms-appx:///Assets/FQLogo/FJ.png" Width="36" Height="36"></Image>-->
+                                <TextBlock Text="其它" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                            </StackPanel>
+                        </GridView.Header>
+
+                    </GridView>
+                </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

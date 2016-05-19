@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="BILIBILI_UWP.WebViewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BILIBILI_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Tag="查看网页"
+    >
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="48"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WebView x:Name="webview_WebView" NavigationStarting="webview_WebView_NavigationStarting" DOMContentLoaded="webview_WebView_DOMContentLoaded" NewWindowRequested="webview_WebView_NewWindowRequested"/>
+        <Grid Grid.Row="1" Background="{ThemeResource Bili-ForeColor}">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                <ProgressBar x:Name="webview_progressBar" Margin="10,0" Width="200"  IsIndeterminate="True" Foreground="White"></ProgressBar>
+            </StackPanel>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="text"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <AppBarButton x:Name="webview_btn_Refresh"  Width="48" Height="48" Icon="Refresh"  Foreground="White" Click="webview_btn_Refresh_Click"></AppBarButton>
+               
+                <AppBarButton x:Name="webview_btn_Close"  Width="48" Icon="Clear"  Foreground="White" Click="webview_btn_Close_Click" VerticalAlignment="Stretch"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="BILIBILI_UWP.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BILIBILI_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Tag="登录"
+    Loaded="Page_Loaded"
+    >
+
+    <Grid >
+        <Grid x:Name="login_Content">
+            <StackPanel Orientation="Vertical" MaxWidth="500" Margin="20,0,20,200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid x:Name="KanZheNi" VerticalAlignment="Top">
+                    <Image Source="Assets/ic_22.png" Width="56" HorizontalAlignment="Left"></Image>
+                    <Image Source="Assets/ic_bili_logo.png" Width="86" HorizontalAlignment="Center"></Image>
+                    <Image Source="Assets/ic_33.png" Width="56" HorizontalAlignment="Right"></Image>
+                </Grid>
+                <Grid x:Name="BuKanZheNi" Visibility="Collapsed" VerticalAlignment="Top">
+                    <Image Source="Assets/ic_22_hide.png" Width="56" HorizontalAlignment="Left"></Image>
+                    <Image Source="Assets/ic_bili_logo.png" Width="86" HorizontalAlignment="Center"></Image>
+                    <Image Source="Assets/ic_33_hide.png" Width="56" HorizontalAlignment="Right"></Image>
+                </Grid>
+                <TextBlock Text="账号：" Margin="0,5"></TextBlock>
+                <TextBox x:Name="Login_User"  Text="" PlaceholderText="请输入手机号、邮箱或用户名"  Margin="0,5"></TextBox>
+                <TextBlock Text="密码：" Margin="0,5"></TextBlock>
+                <PasswordBox x:Name="Login_Pass" PlaceholderText="请输入密码"   Margin="0,5" LostFocus="Login_Pass_LostFocus" GotFocus="Login_Pass_GotFocus"></PasswordBox>
+                <Button x:Name="btn_Login" Content="登录" Width="300" Margin="0,5" Click="btn_Login_Click"></Button>
+                <!--<TextBox x:Name="Login_Results" TextWrapping="Wrap" Height="100" Text="" PlaceholderText="结果" MaxWidth="500" MinWidth="300" Margin="0,5"></TextBox>-->
+                <!--<TextBox x:Name="Login_A"  Text="" PlaceholderText="用于测试" MaxWidth="500" MinWidth="300" Margin="0,5"></TextBox>-->
+            </StackPanel>
+            <!--<TextBox x:Name="Login_Cookies" TextWrapping="Wrap" PlaceholderText="读取到的Cookie" Text=""  Grid.Column="1" Margin="10"></TextBox>-->
+        </Grid>
+        <Grid x:Name="login_Loading">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ProgressRing Width="100" Height="100" IsActive="True"></ProgressRing>
+                <TextBlock Text="正在登录..." HorizontalAlignment="Center" Margin="10"></TextBlock>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,140 @@
+﻿<Page
+    x:Class="BILIBILI_UWP.SettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BILIBILI_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Tag="设置"
+    >
+
+    <Grid >
+        <Pivot x:Name="Setting_pivot">
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="常规设置" FontSize="18"></TextBlock>
+                </PivotItem.Header>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <ToggleSwitch x:Name="sw_Dark" OffContent="日间模式" OnContent="夜间模式" HorizontalAlignment="Left" VerticalAlignment="Top"  Toggled="sw_Dark_Toggled"/>
+                        <TextBlock Text="首页每栏目展示数目(重启应用生效)" Visibility="Collapsed"></TextBlock>
+                        <ComboBox x:Name="cb_SYZS" Visibility="Collapsed" Margin="0,0,0,10"  SelectionChanged="cb_SYZS_SelectionChanged">
+                            <ComboBoxItem>4条</ComboBoxItem>
+                            <ComboBoxItem>6条</ComboBoxItem>
+                            <ComboBoxItem>12条</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="视频播放默认清晰度" ></TextBlock>
+                        <ComboBox x:Name="cb_Quality" Margin="0,0,0,10" SelectionChanged="cb_Quality_SelectionChanged" >
+                            <ComboBoxItem>清晰</ComboBoxItem>
+                            <ComboBoxItem>高清</ComboBoxItem>
+                            <ComboBoxItem>原画</ComboBoxItem>
+                        </ComboBox>
+                       
+                        <ToggleSwitch x:Name="sw_AutoFull" OffContent="视频播放不自动全屏" OnContent="视频播放自动全屏" HorizontalAlignment="Left" VerticalAlignment="Top"  Toggled="sw_AutoFull_Toggled"/>
+                        <ToggleSwitch x:Name="sw_AutoPlay" OffContent="视频不自动播放" OnContent="视频自动播放" HorizontalAlignment="Left" VerticalAlignment="Top"  Toggled="sw_AutoPlay_Toggled"/>
+                        <ToggleSwitch x:Name="sw_SS" OffContent="视频禁用手势操作" OnContent="视频启用手势操作" HorizontalAlignment="Left" VerticalAlignment="Top" Toggled="sw_SS_Toggled"/>
+                        <TextBlock Text="*滑动或点击底部20%区域可以调节进度，右侧20%区域可以调节音量，不怎么好用，建议关闭..." TextWrapping="Wrap" FontSize="14" Foreground="Gray" Margin="0,0,0,10"></TextBlock>
+                        <!--<ToggleSwitch x:Name="sw_ExitUser" OffContent="程序关闭时不自动退出" OnContent="程序关闭时自动退出" HorizontalAlignment="Left" VerticalAlignment="Top" IsOn="False"/>-->
+                        <StackPanel Orientation="Horizontal" Visibility="Collapsed">
+                            <TextBlock Text="缓存大小:" TextWrapping="Wrap"  ></TextBlock>
+                            <TextBlock Text="10" TextWrapping="Wrap"  ></TextBlock>
+                            <TextBlock Text="M" TextWrapping="Wrap"  ></TextBlock>
+                        </StackPanel>
+                        <Button Visibility="Collapsed" x:Name="btn_ClearCache" Content="清除缓存" Click="btn_ClearCache_Click"></Button>
+                    </StackPanel>
+                </ScrollViewer>
+                
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="弹幕设置" FontSize="18"></TextBlock>
+                </PivotItem.Header>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="弹幕关键词隐蔽" ></TextBlock>
+                        <TextBox x:Name="txt_danmu" PlaceholderText="输入关键词，以','分割"></TextBox>
+                        <TextBlock  Text="*输入关键字，以英文的','分割，如：习习蛤蛤,胡手毛脚" TextWrapping="Wrap" FontSize="14" Foreground="Gray" ></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btn_SaveDanMu" Margin="0,0,0,10" Click="btn_SaveDanMu_Click">保存关键词隐蔽</Button>
+                            <TextBlock x:Name="txt_TS" Visibility="Collapsed" FontSize="14" Foreground="Gray" VerticalAlignment="Center">保存成功！</TextBlock>
+                        </StackPanel>
+                     
+                        <TextBlock Text="弹幕大小" ></TextBlock>
+                        <ComboBox x:Name="cb_DanMuSize" Margin="0,0,0,10" SelectionChanged="cb_DanMuSize_SelectionChanged" >
+                            <ComboBoxItem>大</ComboBoxItem>
+                            <ComboBoxItem>小</ComboBoxItem>
+                            <ComboBoxItem>特小</ComboBoxItem>
+                        </ComboBox>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="弹幕透明度" ></TextBlock>
+                            <TextBlock Text="{Binding ElementName=slider_Tran,Path=Value}" Margin="10,0,0,0"></TextBlock>
+                            <TextBlock Text="%" ></TextBlock>
+                        </StackPanel>
+                        <Slider x:Name="slider_Tran" Width="200" HorizontalAlignment="Left" Maximum="100" Minimum="0"  SmallChange="10"  StepFrequency="10" ValueChanged="slider_Tran_ValueChanged"></Slider>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="弹幕速度" ></TextBlock>
+                            <TextBlock Text="{Binding ElementName=slider_Speed,Path=Value}" Margin="10,0,0,0"></TextBlock>
+                        </StackPanel>
+                        <Slider x:Name="slider_Speed" Width="200" HorizontalAlignment="Left" Maximum="10" Minimum="0" ValueChanged="slider_Speed_ValueChanged"></Slider>
+                        <TextBlock Text="*速度数字越大越慢" TextWrapping="Wrap" FontSize="14" Foreground="Gray" Margin="0,0,0,10"></TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="下载设置" FontSize="18"></TextBlock>
+                </PivotItem.Header>
+                <StackPanel Margin="10">
+                    <ToggleSwitch x:Name="sw_UseWifi" OffContent="禁止使用数据下载" OnContent="允许使用数据下载" HorizontalAlignment="Left" VerticalAlignment="Top" Toggled="sw_UseWifi_Toggled"/>
+                    <!--<ToggleSwitch x:Name="sw_DownDanMu" OffContent="不下载弹幕" OnContent="同时下载弹幕" HorizontalAlignment="Left" VerticalAlignment="Top" />-->
+                    <TextBlock Text="当前下载位置：" Margin="0,10,0,0"></TextBlock>
+                    <TextBlock x:Name="txt_Path" Text="系统默认视频库" Foreground="Gray"></TextBlock>
+                    <Button x:Name="btn_ChangeFilePath" Content="更改下载位置(重启应用失效)" Margin="0,10" Click="Button_Click"></Button>
+                    <TextBlock Text="*不这样做会出现拒绝访问文件夹，解决中...如果非必要，建议不要更改下载位置，不然到时会出现各种拒绝访问错误..." TextWrapping="Wrap" FontSize="14" Foreground="Gray"></TextBlock>
+                </StackPanel>
+            </PivotItem>
+           
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="关于" FontSize="18"></TextBlock>
+                </PivotItem.Header>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10" HorizontalAlignment="Left">
+                        <TextBlock FontSize="20">版本</TextBlock>
+                        <TextBlock x:Name="txt_Ver" Text="1.1.9.0" Margin="0,5" TextWrapping="Wrap" FontSize="18" HorizontalAlignment="Left"  IsTextSelectionEnabled="True"></TextBlock>
+                        <TextBlock Text="请大家积极反馈BUG，不要随意给差评"  TextWrapping="Wrap"   Foreground="Gray" IsTextSelectionEnabled="True"></TextBlock>
+                        <TextBlock FontSize="20">作者</TextBlock>
+                        <TextBlock Text="Xiaoyaocz" TextWrapping="Wrap" Margin="0,5" Foreground="Gray"></TextBlock>
+                        <TextBlock FontSize="20">帮助及建议</TextBlock>
+                        <HyperlinkButton  NavigateUri="http://xiaoyaocz.xclub.cn/">BUG反馈</HyperlinkButton>
+                        <TextBlock Text="交流群:530991215" TextWrapping="Wrap"  Margin="0,5"  Foreground="Gray" IsTextSelectionEnabled="True"></TextBlock>
+                        <TextBlock FontSize="20">说明</TextBlock>
+                        <TextBlock Text="本应用开源，仅用于学习交流，禁止一切商业化用途！"   TextWrapping="Wrap"  Margin="0,5"  Foreground="Gray" IsTextSelectionEnabled="True"></TextBlock>
+                        <HyperlinkButton Click="HyperlinkButton_Click"  >访问Github</HyperlinkButton>
+                        <TextBlock FontSize="20">捐赠</TextBlock>
+                        <TextBlock Text="学生党，求赞助点伙食费"   TextWrapping="Wrap"  Margin="0,5,0,0"  Foreground="Gray" IsTextSelectionEnabled="True"></TextBlock>
+                        <TextBlock Text="支付婊："   TextWrapping="Wrap"    Foreground="Gray"></TextBlock>
+                        <TextBlock Text="2500655055@qq.com,**程"  Foreground="Gray" IsTextSelectionEnabled="True"></TextBlock>
+                        <TextBlock FontSize="20">版本更新</TextBlock>
+                        <TextBlock Text="开学咯，更新速度会比较慢
+                                   &#x0a;Ver 1.1.9.0
+                                   &#x0a;1、加入弹幕隐蔽
+                                   &#x0a;2、内存占用优化
+                                   &#x0a;3、加入夜间模式
+                                   &#x0a;4、优化部分卡顿问题
+                                    &#x0a;5、支持下拉刷新
+                                   &#x0a;6、修改部分UI
+                                   &#x0a;7、修复反馈的一些问题
+                                   &#x0a;
+                                    &#x0a;下个版本会将调整整个UI、重写离线、弹幕优化、完善直播、支持FLV播放等等
+                                   " 
+                                   TextWrapping="Wrap"  Margin="0,5,0,0"  Foreground="Gray"></TextBlock>
+                        <HyperlinkButton x:Name="btn_PicSrc" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Bottom" >背景来源：BiliBili壁纸站</HyperlinkButton>
+                    </StackPanel>
+                </ScrollViewer>
+               
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

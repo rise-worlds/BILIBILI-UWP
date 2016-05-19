@@ -1,0 +1,98 @@
+﻿<Page
+    x:Class="BILIBILI_UWP.DownloadPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BILIBILI_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Tag="下载管理"
+    >
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="56"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Pivot SelectionChanged="Pivot_SelectionChanged" >
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="正在下载" FontSize="18"></TextBlock>
+                </PivotItem.Header>
+                <ListView x:Name="list_Downing" SelectionMode="Extended">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
+                            <Setter Property="BorderBrush" Value="#FFCBCBCB"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding DownFileName}" TextWrapping="Wrap" FontSize="18" Margin="0,5"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1"  Margin="0,5">
+                                    <TextBlock Text="状态：" FontSize="12" Foreground="Gray"></TextBlock>
+                                    <TextBlock Text="{Binding DownStatus}" FontSize="12" Margin="0,0,10,0" Foreground="Black"></TextBlock>
+                                    <TextBlock Text="下载进度：" FontSize="12" Foreground="Gray" ></TextBlock>
+                                    <TextBlock Text="{ Binding DownNum}" FontSize="12" Foreground="Gray"></TextBlock>
+                                    <TextBlock Text="M" FontSize="12" Foreground="Gray"></TextBlock>
+                                    <TextBlock Text="/" FontSize="12" Foreground="Gray"></TextBlock>
+                                    <TextBlock Text="{Binding DownMaxNum}" FontSize="12" Foreground="Gray"></TextBlock>
+                                    <TextBlock Text="M" FontSize="12" Foreground="Gray"></TextBlock>
+                                </StackPanel >
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="已经完成" FontSize="18"></TextBlock>
+                </PivotItem.Header>
+                <ListView x:Name="list_DownOk" SelectionMode="Single" >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
+                            <Setter Property="BorderBrush" Value="#FFCBCBCB"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding FileName}" TextWrapping="Wrap" FontSize="18" Margin="0,5"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1"  Margin="0,5">
+                                    <TextBlock Text="下载时间：" FontSize="12" Foreground="Gray" ></TextBlock>
+                                    <TextBlock Text="{Binding Date}" FontSize="12" Foreground="Gray"></TextBlock>
+                                    <!--<TextBlock Text="文件大小：" FontSize="12" Foreground="Gray" Margin="10,0,0,0"></TextBlock>
+                                    <TextBlock Text="{Binding FileSize}" FontSize="12" Foreground="Gray"></TextBlock>-->
+                                </StackPanel >
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                   
+                </ListView>
+            </PivotItem>
+        </Pivot>
+
+        <CommandBar  x:Name="bar_down" Grid.Row="1" Background="{ThemeResource Bili-ForeColor}" Foreground="White" VerticalAlignment="Bottom">
+            <AppBarButton Label="开始选中" Icon="Download" Foreground="White" Click="AppBarButton_Click"></AppBarButton>
+            <AppBarButton x:Name="btn_Pause" Label="暂停选中" Icon="Pause" Foreground="White" Click="btn_Pause_Click"></AppBarButton>
+            <AppBarButton x:Name="btn_Cancel" Label="取消选中" Icon="Cancel" Foreground="White" Click="btn_Cancel_Click"></AppBarButton>
+            <AppBarButton Label="下载设置" Icon="Setting" Foreground="White" Click="AppBarButton_Click_1"></AppBarButton>
+        </CommandBar>
+        <CommandBar x:Name="bar_down_OK" Grid.Row="1" Background="{ThemeResource Bili-ForeColor}" Foreground="White" VerticalAlignment="Bottom">
+            <AppBarButton x:Name="btn_Play" Label="播放选中" Icon="Play" Foreground="White" Click="btn_Play_Click"></AppBarButton>
+            <AppBarButton  x:Name="btn_Delete" Label="删除选中" Icon="Delete" Foreground="White" Click="btn_Delete_Click"></AppBarButton>
+        </CommandBar>
+        <TextBlock x:Name="txt_Status" Text="测试" Visibility="Collapsed" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0"></TextBlock>
+    </Grid>
+</Page>

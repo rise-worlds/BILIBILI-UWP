@@ -1,0 +1,371 @@
+﻿<Page
+    x:Class="BILIBILI_UWP.PlayerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BILIBILI_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Tag="视频播放"
+    >
+    <Page.Resources>
+        <Style x:Key="TextBoxStyle1" TargetType="TextBox">
+            <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}"/>
+            <Setter Property="SelectionHighlightColor" Value="{ThemeResource SystemControlHighlightAccentBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource TextControlBorderThemeThickness}"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+            <Setter Property="Padding" Value="{ThemeResource TextControlThemePadding}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid VerticalAlignment="Center">
+                            <Grid.Resources>
+                                <Style x:Name="DeleteButtonStyle" TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Grid x:Name="ButtonLayoutGrid" BorderBrush="{ThemeResource TextBoxButtonBorderThemeBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource TextBoxButtonBackgroundThemeBrush}">
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Normal"/>
+                                                            <VisualState x:Name="PointerOver">
+                                                                <Storyboard>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="GlyphElement">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAccentBrush}"/>
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Pressed">
+                                                                <Storyboard>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonLayoutGrid">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAccentBrush}"/>
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="GlyphElement">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltChromeWhiteBrush}"/>
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Disabled">
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ButtonLayoutGrid"/>
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                    <TextBlock x:Name="GlyphElement" AutomationProperties.AccessibilityView="Raw" Foreground="{ThemeResource SystemControlForegroundChromeBlackMediumBrush}" FontStyle="Normal" FontSize="12" FontFamily="{ThemeResource SymbolThemeFontFamily}" HorizontalAlignment="Center" Text="&#xE10A;" VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="HeaderContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BackgroundElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledTransparentBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BorderElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledChromeDisabledLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="PlaceholderTextContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledChromeDisabledLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightChromeAltLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackgroundElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlBackgroundHoverOpacity}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="PlaceholderTextContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlPageTextChromeBlackMediumLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BackgroundElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundChromeWhiteBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackgroundElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlBackgroundFocusedOpacity}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAccentBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlForegroundChromeBlackHighBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="RequestedTheme" Storyboard.TargetName="ContentElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Light"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ButtonStates">
+                                    <VisualState x:Name="ButtonVisible">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DeleteButton">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="ButtonCollapsed"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="BackgroundElement" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" Margin="{TemplateBinding BorderThickness}" Opacity="{ThemeResource TextControlBackgroundRestOpacity}" Grid.Row="1" Grid.RowSpan="1"/>
+                            <Border x:Name="BorderElement" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="1"/>
+                            <ContentPresenter x:Name="HeaderContentPresenter" Grid.ColumnSpan="2" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" FontWeight="Normal" Margin="0,0,0,8" Grid.Row="0" Visibility="Collapsed" x:DeferLoadStrategy="Lazy"/>
+                            <ScrollViewer x:Name="ContentElement" AutomationProperties.AccessibilityView="Raw" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsTabStop="False" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" Margin="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Grid.Row="1" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="Disabled"/>
+                            <ContentControl x:Name="PlaceholderTextContentPresenter" Grid.RowSpan="2" VerticalAlignment="Center" Grid.ColumnSpan="2" Content="{TemplateBinding PlaceholderText}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}" IsHitTestVisible="False" IsTabStop="False" Margin="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Grid.Row="1"/>
+                            <Button x:Name="DeleteButton" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="1" FontSize="{TemplateBinding FontSize}" IsTabStop="False" Margin="{ThemeResource HelperButtonThemePadding}" MinWidth="34" Grid.Row="1" Style="{StaticResource DeleteButtonStyle}" Visibility="Collapsed" VerticalAlignment="Stretch"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid x:Name="grid_test"  KeyDown="mediaElement_KeyDown" RenderTransformOrigin="0.5,0.5">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" KeyDown="Grid_KeyDown">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <MediaElement  Grid.RowSpan="4" AutoPlay="True" Volume="{ Binding ElementName=slider_V,Path=Value,Mode=OneWay}" x:Name="mediaElement"   DoubleTapped="mediaElement_DoubleTapped" Tapped="mediaElement_Tapped" BufferingProgressChanged="mediaElement_BufferingProgressChanged" CurrentStateChanged="mediaElement_CurrentStateChanged_1" DownloadProgressChanged="mediaElement_DownloadProgressChanged" MediaEnded="mediaElement_MediaEnded" MarkerReached="mediaElement_MarkerReached" KeyDown="mediaElement_KeyDown"/>
+            <Grid x:Name="test_grid" Grid.RowSpan="3" Tapped="mediaElement_Tapped" DoubleTapped="mediaElement_DoubleTapped">
+                <Grid.RowDefinitions>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!--<StackPanel x:Name="D_Top"  Grid.RowSpan="11"  VerticalAlignment="Top" />
+                <StackPanel x:Name="D_Bottom"  Grid.RowSpan="11"  VerticalAlignment="Bottom"></StackPanel>-->
+            </Grid>
+            <Grid x:Name="test_grid2" Grid.RowSpan="3" Tapped="mediaElement_Tapped" DoubleTapped="mediaElement_DoubleTapped">
+                <StackPanel x:Name="D_Top"  Grid.RowSpan="11"  VerticalAlignment="Top" />
+                <StackPanel x:Name="D_Bottom"  Grid.RowSpan="11"  VerticalAlignment="Bottom"></StackPanel>
+            </Grid>
+            <Grid Background="#99616161" x:Name="grid_1">
+                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left">
+                    <AppBarButton x:Name="btn_Back" Click="btn_Back_Click" Width="48" Height="48" Icon="Back" Foreground="White"></AppBarButton>
+                    <TextBlock x:Name="txt_title"  Margin="5,0" VerticalAlignment="Center" Foreground="White"  ></TextBlock>
+                    <TextBox Visibility="Collapsed" x:Name="txt_ID" Width="100"></TextBox>
+                    <TextBox Visibility="Collapsed" x:Name="txt" Width="200"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <ComboBox x:Name="cb_Quality" HorizontalAlignment="Right" Margin="5,0" SelectedIndex="1" BorderBrush="{x:Null}" Height="32"    VerticalAlignment="Center" Foreground="White" SelectionChanged="cb_Quality_SelectionChanged" >
+                        <ComboBoxItem>清晰</ComboBoxItem>
+                        <ComboBoxItem>高清</ComboBoxItem>
+                        <ComboBoxItem>原画</ComboBoxItem>
+                    </ComboBox>
+
+                    <AppBarButton Width="48" Height="48" Icon="More" Foreground="White">
+                        <AppBarButton.Flyout>
+                            <MenuFlyout Placement="Bottom">
+
+                                <MenuFlyoutItem x:Name="menu_Video_Info" FontSize="14" Click="MenuFlyoutItem_Click_1">视频信息</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
+                </StackPanel>
+            </Grid>
+            <Grid Background="#99616161" Grid.Row="2" x:Name="grid_2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Slider x:Name="slider1" Grid.Column="1" Margin="5,0"  Maximum="100" ValueChanged="slider_ValueChanged" Style="{StaticResource  SliderStyle2}" Foreground="#7FFFFFFF" Background="Black"></Slider>
+                <Slider x:Name="slider" Grid.Column="1" Margin="5,0" Value="{Binding ElementName=mediaElement,Path=Position.TotalSeconds,Mode=TwoWay}" Maximum="{Binding ElementName=mediaElement,Path=NaturalDuration.TimeSpan.TotalSeconds,Mode=TwoWay}" ValueChanged="slider_ValueChanged" Style="{StaticResource  SliderStyle1}" Foreground="#7FFFFFFF" Background="#B2000000"></Slider>
+                <Slider x:Name="slider2" Grid.Column="1" Maximum="{Binding ElementName=mediaElement,Path=NaturalDuration.TimeSpan.TotalSeconds,Mode=OneWay}" Margin="5,0"   ValueChanged="slider2_ValueChanged" Style="{StaticResource  SliderStyle2}" Foreground="{x:Null}" Background="{x:Null}"></Slider>
+                <TextBlock x:Name="txt_Status" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Foreground="White" ></TextBlock>
+                <StackPanel Margin="5,0" VerticalAlignment="Center" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left">
+                    <TextBlock Text="{Binding ElementName=mediaElement,Path=Position.Hours,Mode=OneWay}" FontSize="14"   Foreground="White"></TextBlock>
+                    <TextBlock Text=":" FontSize="14"   Foreground="White"></TextBlock>
+                    <TextBlock Text="{Binding ElementName=mediaElement,Path=Position.Minutes,Mode=OneWay}" FontSize="14"   Foreground="White"></TextBlock>
+                    <TextBlock Text=":" FontSize="14"   Foreground="White"></TextBlock>
+                    <TextBlock Text="{Binding ElementName=mediaElement,Path=Position.Seconds,Mode=OneWay}" FontSize="14"   Foreground="White"></TextBlock>
+
+                </StackPanel>
+                <StackPanel Margin="5,0" VerticalAlignment="Center" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
+                    <TextBox  Text="{Binding ElementName=mediaElement,Path=Position.Seconds,Mode=OneWay}" TextChanged="TextBox_TextChanged" Width="48" Margin="0,50,0,0" ></TextBox>
+                    <TextBlock Text="{Binding ElementName=mediaElement,Path=NaturalDuration.TimeSpan.Hours,Mode=OneWay}" FontSize="14"   Foreground="White"></TextBlock>
+                    <TextBlock Text=":" FontSize="14"   Foreground="White"></TextBlock>
+                    <TextBlock Text="{Binding ElementName=mediaElement,Path=NaturalDuration.TimeSpan.Minutes,Mode=OneWay}" FontSize="14"   Foreground="White"></TextBlock>
+                    <TextBlock Text=":" FontSize="14"   Foreground="White"></TextBlock>
+                    <TextBlock Text="{Binding ElementName=mediaElement,Path=NaturalDuration.TimeSpan.Seconds,Mode=OneWay}" FontSize="14"   Foreground="White"></TextBlock>
+                </StackPanel>
+                <AppBarButton x:Name="btn_Play" Icon="Play" Grid.RowSpan="2" Height="48" Width="48" Foreground="White" Click="btn_Play_Click"></AppBarButton>
+                <AppBarButton x:Name="btn_Pause"  Visibility="Collapsed" Icon="Pause"  Grid.RowSpan="2" Height="48" Width="48" Foreground="White" Click="Pause_Click"></AppBarButton>
+                <AppBarButton x:Name="btn_SendDanMu" Visibility="Collapsed" Icon="Message" Grid.RowSpan="2"  Height="48" Width="48" Grid.Column="2" Foreground="White" Click="btn_SendDanMu_Click"></AppBarButton>
+                <AppBarButton x:Name="btn_DM" Icon="LeaveChat" Grid.RowSpan="2"  Height="48" Width="48" Grid.Column="3" Foreground="White" Click="btn_DM_Click"></AppBarButton>
+                <AppBarButton Icon="Volume"  Grid.RowSpan="2"  Height="48" Width="48" Grid.Column="4" Foreground="White" >
+                    <AppBarButton.Flyout>
+                        <Flyout>
+                            <Slider x:Name="slider_V" Orientation="Horizontal"  VerticalAlignment="Center" Width="200"  Value="{Binding ElementName=mediaElement,Path=Volume,Mode=TwoWay}"  Maximum="1" Minimum="0"  SmallChange="0.1" StepFrequency="0.1"></Slider>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton x:Name="btn_Turn" Icon="Rotate" Grid.RowSpan="3"  Height="48" Width="48" Grid.Column="5" Foreground="White" Click="btn_Turn_Click"></AppBarButton>
+                <AppBarButton x:Name="btn_Full" Icon="FullScreen" Grid.RowSpan="3"  Height="48" Width="48" Grid.Column="6" Foreground="White" Click="btn_Full_Click"></AppBarButton>
+                <AppBarButton x:Name="btn_ExitFull" Visibility="Collapsed" Icon="BackToWindow" Grid.RowSpan="3"  Height="48" Width="48" Grid.Column="6" Foreground="White" Click="btn_ExitFull_Click"></AppBarButton>
+            </Grid>
+            <Grid x:Name="grid_DanMu"  Background="#99616161"  Grid.Row="3" Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <AppBarButton x:Name="btn_Setting" Width="48" Height="48" Icon="Setting" Foreground="White">
+                        <AppBarButton.Flyout>
+                            <Flyout>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock>隐藏弹幕</TextBlock>
+                                        <CheckBox x:Name="chb_Gun"  Width="100">滚动弹幕</CheckBox>
+                                        <CheckBox x:Name="chb_Botton" Width="100">底部弹幕</CheckBox>
+                                        <CheckBox  x:Name="chb_Top"  Width="100">顶部弹幕</CheckBox>
+                                        <Button x:Name="btn_Save" Click="btn_Save_Click">保存设置</Button>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Width="150" Visibility="Collapsed">
+                                        <TextBlock>关键词隐蔽(以 , 分割)</TextBlock>
+                                        <TextBox x:Name="txt_DanMuYB" TextWrapping="Wrap"></TextBox>
+                                    </StackPanel>
+                                </Grid>
+                              
+                            </Flyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
+                    <ComboBox x:Name="cb_Mode" VerticalAlignment="Center" BorderBrush="{x:Null}" Background="{x:Null}" SelectedIndex="0" Foreground="White">
+                        <ComboBoxItem>滚动弹幕</ComboBoxItem>
+                        <ComboBoxItem>顶部弹幕</ComboBoxItem>
+                        <ComboBoxItem>底部弹幕</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox x:Name="cb_Color" VerticalAlignment="Center" Foreground="{Binding ElementName=cb_Color,Path=SelectedItem.Foreground}" BorderBrush="{x:Null}" Background="{x:Null}" SelectedIndex="0" >
+                        <ComboBoxItem Foreground="White" Tag="16777215">白色</ComboBoxItem>
+                        <ComboBoxItem Foreground="Red" Tag="16711680">红色</ComboBoxItem>
+                        <ComboBoxItem Foreground="Yellow" Tag="16776960">黄色</ComboBoxItem>
+                        <ComboBoxItem Foreground="Lime" Tag="65280">绿色</ComboBoxItem>
+                        <ComboBoxItem Foreground="#FF4FAFFF" Tag="52479">淡蓝</ComboBoxItem>
+                        <ComboBoxItem Foreground="#FF7BFF6E" Tag="3394662">浅绿</ComboBoxItem>
+                        <ComboBoxItem Foreground="Blue" Tag="255">深蓝</ComboBoxItem>
+                        <ComboBoxItem Foreground="#FF5D00FF" Tag="6684774">紫色</ComboBoxItem>
+                        <ComboBoxItem  Foreground="#FFFF00F3" Tag="16711935">粉色</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <TextBox x:Name="text_Comment" Grid.Column="1"  BorderThickness="0" PlaceholderText="让弹幕飞一会....." VerticalContentAlignment="Center" Height="48" Style="{StaticResource TextBoxStyle1}" Background="{x:Null}"></TextBox>
+                <AppBarButton x:Name="btn_SendComment" Icon="Send"  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="48" Height="48" Click="btn_SendComment_Click" Foreground="White" ></AppBarButton>
+            </Grid>
+
+            <StackPanel x:Name="loading"  Grid.RowSpan="3" Visibility="Collapsed"  VerticalAlignment="Center" Width="140" Height="100" >
+                <ProgressRing x:Name="pro_ring" IsActive="True" Width="50" Height="50" ></ProgressRing>
+                <TextBlock x:Name="txt_Buff" Text="正在缓存 " VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF999999"></TextBlock>
+            </StackPanel>
+            <Grid x:Name="grid_end"  Grid.Row="1" Visibility="Collapsed" Background="#7FB6B6B6">
+                <StackPanel VerticalAlignment="Center">
+                    <Image Source="ms-appx:///Assets/LOGO88.png" Width="88" Height="88" ></Image>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">视频播放完毕</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="5" x:Name="btn_RePlay" Click="btn_RePlay_Click">重新播放</Button>
+                        <Button Margin="5" x:Name="btn_ExitPlay" Click="btn_ExitPlay_Click">退出播放</Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="grid_error"  Grid.Row="1" Visibility="Collapsed" Background="#7FB6B6B6">
+                <StackPanel VerticalAlignment="Center">
+                    <Image Source="ms-appx:///Assets/LOGO88.png" Width="88" Height="88" ></Image>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">读取视频信息失败</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="5" x:Name="btn_re" Click="btn_re_Click">重新试试</Button>
+                        <Button Margin="5"  Click="btn_ExitPlay_Click">退出播放</Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" Tapped="Grid_Tapped" DoubleTapped="mediaElement_DoubleTapped">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="SS_Volume" Orientation="Vertical" Grid.Row="0" Grid.Column="1" Width="100" HorizontalAlignment="Right" Value="{Binding ElementName=mediaElement,Path=Volume,Mode=TwoWay}" Style="{StaticResource  SliderStyle3}" Maximum="1" Minimum="0" ValueChanged="SS_Volume_ValueChanged" SmallChange="0.1" StepFrequency="0.1"></Slider>
+                <Slider x:Name="SS_Post" Grid.Row="1" Grid.ColumnSpan="2" Maximum="{Binding ElementName=mediaElement,Path=NaturalDuration.TimeSpan.TotalSeconds}" ValueChanged="Slider_ValueChanged_1" Style="{StaticResource SliderStyle3}"></Slider>
+            </Grid>
+        </Grid>
+        <TextBox x:Name="text_Grid" Grid.Row="1" Visibility="Collapsed"></TextBox>
+        <!--<Grid Grid.Row="1" BorderThickness="1" BorderBrush="#FFB4B4B4" >
+            <AutoSuggestBox  VerticalAlignment="Center" VerticalContentAlignment="Center" BorderBrush="#FFBDBDBD" PlaceholderText="发送弹幕" >
+                <AutoSuggestBox.QueryIcon>
+                    <SymbolIcon Symbol="Send" Height="20" Width="20"/>
+                </AutoSuggestBox.QueryIcon>
+            </AutoSuggestBox>
+        </Grid>-->
+    </Grid>
+</Page>

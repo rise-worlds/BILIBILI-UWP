@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{F0143E97-0701-4E31-8306-C2F14243E85A}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BILIBILI_UWP</RootNamespace>
+    <AssemblyName>BILIBILI-UWP</AssemblyName>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>BILIBILI-UWP_StoreKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>908381D5E8131AEFCAE9C90E3001F30F2480E033</PackageCertificateThumbprint>
+    <AppxBundle>Auto</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="BILIBILI-UWP_StoreKey.pfx" />
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AttentionUpdatePage.xaml.cs">
+      <DependentUpon>AttentionUpdatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BanSeasonByTag.xaml.cs">
+      <DependentUpon>BanSeasonByTag.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BanSeasonNewPage.xaml.cs">
+      <DependentUpon>BanSeasonNewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BanSeasonPage.xaml.cs">
+      <DependentUpon>BanSeasonPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Class\bilibiliAPI.cs" />
+    <Compile Include="CommentPage.xaml.cs">
+      <DependentUpon>CommentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\LivePlayerPage.xaml.cs">
+      <DependentUpon>LivePlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\DHPage.xaml.cs">
+      <DependentUpon>DHPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadPage.xaml.cs">
+      <DependentUpon>DownloadPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FavoritesInfoPage.xaml.cs">
+      <DependentUpon>FavoritesInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Class\GetLoginInfoClass.cs" />
+    <Compile Include="Page\BangumiPage.xaml.cs">
+      <DependentUpon>BangumiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\PartitionPage.xaml.cs">
+      <DependentUpon>PartitionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\PlayerPage.xaml.cs">
+      <DependentUpon>PlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\DSJPage.xaml.cs">
+      <DependentUpon>DSJPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\DYPage.xaml.cs">
+      <DependentUpon>DYPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\FJPage.xaml.cs">
+      <DependentUpon>FJPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\GCPage.xaml.cs">
+      <DependentUpon>GCPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\KJPage.xaml.cs">
+      <DependentUpon>KJPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\LivePage.xaml.cs">
+      <DependentUpon>LivePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\SSPage.xaml.cs">
+      <DependentUpon>SSPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\WDPage.xaml.cs">
+      <DependentUpon>WDPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\YXPage.xaml.cs">
+      <DependentUpon>YXPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Page\RankPage.xaml.cs">
+      <DependentUpon>RankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPage.xaml.cs">
+      <DependentUpon>SubPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInfoPage.xaml.cs">
+      <DependentUpon>UserInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\VideoPage.xaml.cs">
+      <DependentUpon>VideoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\WebViewPage.xaml.cs">
+      <DependentUpon>WebViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\YYPage.xaml.cs">
+      <DependentUpon>YYPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartPage\YLPage.xaml.cs">
+      <DependentUpon>YLPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Class\WebClientClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="BILIBILI-UWP_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\949a7c2de26f0700.png" />
+    <Content Include="Assets\DH.png" />
+    <Content Include="Assets\iconfont-menu.png" />
+    <Content Include="Assets\ic_22.png" />
+    <Content Include="Assets\ic_22_hide.png" />
+    <Content Include="Assets\ic_33.png" />
+    <Content Include="Assets\ic_33_hide.png" />
+    <Content Include="Assets\ic_bili_logo.png" />
+    <Content Include="Assets\ic_info_danmakus2.png" />
+    <Content Include="Assets\ic_info_views2.png" />
+    <Content Include="Assets\LOGO88.png" />
+    <Content Include="Assets\MiniIcon\B.png" />
+    <Content Include="Assets\MiniIcon\dh1.png" />
+    <Content Include="Assets\MiniIcon\DM.png" />
+    <Content Include="Assets\MiniIcon\dsj1.png" />
+    <Content Include="Assets\MiniIcon\DT.png" />
+    <Content Include="Assets\MiniIcon\DY.png" />
+    <Content Include="Assets\MiniIcon\dy1.png" />
+    <Content Include="Assets\MiniIcon\fj1.png" />
+    <Content Include="Assets\MiniIcon\gc1.png" />
+    <Content Include="Assets\MiniIcon\kj1.png" />
+    <Content Include="Assets\MiniIcon\New.png" />
+    <Content Include="Assets\MiniIcon\Play.png" />
+    <Content Include="Assets\MiniIcon\PlayWhite.png" />
+    <Content Include="Assets\MiniIcon\scj.png" />
+    <Content Include="Assets\MiniIcon\Sex.png" />
+    <Content Include="Assets\MiniIcon\ss1.png" />
+    <Content Include="Assets\MiniIcon\Time.png" />
+    <Content Include="Assets\MiniIcon\TJ.png" />
+    <Content Include="Assets\MiniIcon\Type.png" />
+    <Content Include="Assets\MiniIcon\uid.png" />
+    <Content Include="Assets\MiniIcon\up.png" />
+    <Content Include="Assets\MiniIcon\User.jpg" />
+    <Content Include="Assets\MiniIcon\wd1.png" />
+    <Content Include="Assets\MiniIcon\yl1.png" />
+    <Content Include="Assets\MiniIcon\yx1.png" />
+    <Content Include="Assets\MiniIcon\yy1.png" />
+    <Content Include="Assets\MiniIcon\zb1.png" />
+    <Content Include="Assets\MiniIcon\个人.png" />
+    <Content Include="Assets\MiniIcon\关注.png" />
+    <Content Include="Assets\MiniIcon\地址.png" />
+    <Content Include="Assets\MiniIcon\收藏.png" />
+    <Content Include="Assets\MiniIcon\注册时间.png" />
+    <Content Include="Assets\MiniIcon\生日.png" />
+    <Content Include="Assets\MiniIcon\硬币.png" />
+    <Content Include="Assets\MiniIcon\追番.png" />
+    <Content Include="Assets\PartIcon\BDH.png" />
+    <Content Include="Assets\PartIcon\BDSJ.png" />
+    <Content Include="Assets\PartIcon\BDY.png" />
+    <Content Include="Assets\PartIcon\BFJ.png" />
+    <Content Include="Assets\PartIcon\BGC.png" />
+    <Content Include="Assets\PartIcon\BKJ.png" />
+    <Content Include="Assets\PartIcon\BSS.png" />
+    <Content Include="Assets\PartIcon\BWD.png" />
+    <Content Include="Assets\PartIcon\BYL.png" />
+    <Content Include="Assets\PartIcon\BYX.png" />
+    <Content Include="Assets\PartIcon\BYY.png" />
+    <Content Include="Assets\PartIcon\BZB.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-200.png" />
+    <Content Include="Assets\User.jpg" />
+    <Content Include="Assets\硬币.png" />
+    <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="AttentionUpdatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BanSeasonByTag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BanSeasonNewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BanSeasonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\LivePlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\DHPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DownloadPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FavoritesInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\BangumiPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Page\RankPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\PartitionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\PlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\DSJPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\DYPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\FJPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\GCPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\KJPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\LivePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\SSPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\WDPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\YXPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\VideoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\WebViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\YYPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartPage\YLPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
